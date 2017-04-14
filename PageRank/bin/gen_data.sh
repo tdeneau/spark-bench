@@ -14,7 +14,7 @@ RM ${INPUT_HDFS}
 START_TS=`get_start_ts`;
 
 setup
-genOpt="small"
+genOpt="large"
 if [ $genOpt = "small" ]; then
 	JAR="${DIR}/target/PageRankApp-1.0.jar"
 	CLASS="src.main.scala.pageRankDataGen"

@@ -7,6 +7,19 @@ if [ -f "${bin}/../conf/env.sh" ]; then
   . "${bin}/../conf/env.sh"
   set +a
 fi
+NUM_OF_FEATURES=6000
+NUM_OF_EXAMPLES=8000
+NUM_OF_PARTITIONS=240
+memoryFraction=0.5
+rddcodec=0.5
+spark_ser=
+rdd_compression=
+
+
+
+
+
+
 
 APP=sql
 APP_DIR=${DATA_HDFS}/${APP}

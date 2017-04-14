@@ -25,6 +25,7 @@ for((i=0;i<${NUM_TRIALS};i++)); do
 	RM ${OUTPUT_HDFS}
 	purge_data "${MC_LIST}"	
 	START_TIME=`timestamp`
+memoryFraction=0.05
 START_TS=`get_start_ts`;
 	echo_and_run sh -c " ${SPARK_HOME}/bin/spark-submit --class $CLASS --master ${APP_MASTER} ${YARN_OPT} --conf spark.storage.memoryFraction=${memoryFraction} --conf spark.executor.memory=1g $JAR ${OPTION} 2>&1|tee ${BENCH_NUM}/${APP}_run_${START_TS}.dat"
 res=$?;

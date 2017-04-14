@@ -7,9 +7,9 @@ DIR=`cd $bin/../; pwd`
 . "${DIR}/bin/config.sh"
 echo "========== running ${APP} benchmark =========="
 
-mode="sercmp"
+#mode="sercmp"
 #mode="inputsize"
-#mode="partition"
+mode="partition"
 #mode="mem"
 #mode="mem_par"
 #mode="feature"
@@ -17,6 +17,8 @@ APP=""
 if  [ $# -ge 1 ] && [ $1 = "hive" ]; then
 	APP=hive
 fi
+echo Mode is:  $mode
+echo
 if [ $mode = "partition" ]; then
 	#vals="360 480 540  720   960  180  420 600 840 1080"; 				
 	#vals="200 220 240 260 280 300 320 340"; 
@@ -26,6 +28,9 @@ if [ $mode = "partition" ]; then
 	sed -i "/NUM_OF_EXAMPLES=/ c NUM_OF_EXAMPLES=8000" bin/config.sh;				
 	vals="70 80 90 100 110 120 130 140 160 180 200 240"; 				
 	for n in $vals; do 					
+		echo
+		pwd
+		echo sed -i "/NUM_OF_PARTITIONS=/ c NUM_OF_PARTITIONS=$n" bin/config.sh; 
 		sed -i "/NUM_OF_PARTITIONS=/ c NUM_OF_PARTITIONS=$n" bin/config.sh; 
 		bin/gen_data.sh; 
 		bin/run.sh; 

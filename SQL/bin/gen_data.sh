@@ -19,10 +19,20 @@ MKDIR ${INPUT_HDFS}
 START_TS=`get_start_ts`;
 #MKDIR $tmp_dir
 srcf=file:///${DIR}/src/resources/sample_data_set
+echo  Copying from: srcf=file:///${DIR}/src/resources/sample_data_set
+echo  to $INPUT_HDFS
 
 START_TIME=`timestamp`
+echo STARt Time: $START_TIME
 
+echo "================================ "
+echo CPFROM $srcf ${INPUT_HDFS}
+echo "================================ "
+echo
+echo
 CPFROM $srcf ${INPUT_HDFS}
+echo
+echo
 
 res=$?;
 END_TIME=`timestamp`

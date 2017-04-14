@@ -4,10 +4,15 @@ this="${BASH_SOURCE-$0}"
 bin=$(cd -P -- "$(dirname -- "$this")" && pwd -P)
 if [ -f "${bin}/../conf/env.sh" ]; then
   set -a
+    echo
+	echo
+	echo Running ${bin}/../conf/env.sh  
   . "${bin}/../conf/env.sh"
   set +a
 fi
-
+echo
+echo
+COMPRESS_GLOBAL=0
 APP=streaming
 INPUT_HDFS=${DATA_HDFS}/LinearRegression/Input
 OUTPUT_HDFS=${DATA_HDFS}/${APP}/Output
@@ -23,15 +28,22 @@ set_gendata_opt
 set_run_opt
 
 #input benreport
+
 function print_config(){
-	local output=$1
+               get_config_values $1 $2 $3 $4 $5 $6
+}
 
-	CONFIG=
-	if [ ! -z "$SPARK_STORAGE_MEMORYFRACTION" ]; then
-	  CONFIG="${CONFIG} memoryFraction ${SPARK_STORAGE_MEMORYFRACTION}"
-	fi
 
-	echo "${APP}_${subApp}_config \
-	${CONFIG} " >> ${output}
+function get_config_fields(){
+local report_field=$(get_report_field_name)
+echo -n "#${report_field},AppType,nExe,driverMem,exeMem,exeCore,nPar,nIter,memoryFraction,NUM_OF_EXAMPLES,NUM_OF_FEATURES,NUM_OF_PARTITIONS,class_c,class-r, impurity-c,impurity-c, maxDepth-c,maxDepth-r, maxbin-c,maxbin-r, mode-c,modeR"
+echo -en "\n"
+
+}
+function get_config_values(){
+      gen_report $1 $2 $3 $4 $5 $6
+      echo -n ",${APP}-MLlibConfig,$nexe,$dmem,$emem,$ecore,${NUM_OF_EXAMPLES},${NUM_OF_FEATURES},${EPS},${NUM_OF_PARTITIONS},${INTERCEPTS},${MAX_ITERATION},${memoryFraction},${STEP_SIZE},$noise,${lambda},${miniBatch},${sparseness},${convergenceTol}"
+       echo -en "\n"
+       return 0
 }
 

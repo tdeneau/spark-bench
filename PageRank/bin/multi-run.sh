@@ -5,9 +5,9 @@ bin=`cd "$bin"; pwd`
 DIR=`cd $bin/../; pwd`
 
 #mode="sercmp"
-mode="inputsize"
+#mode="inputsize"
 #mode="partition"
-#mode="mem"
+mode="mem"
 #mode="mem_par"
 #mode="feature"
 
